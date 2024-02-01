@@ -10,7 +10,6 @@ export default {
       padding: '2rem',
       center: true,
     },
-
     extend: {},
   },
   plugins: [import('preline/plugin')],

@@ -21,9 +21,9 @@ const Navbar = () => {
     },
   ];
   return (
-    <header className='container flex flex-wrap sm:justify-start sm:flex-nowrap w-full  text-sm py-4 bg-transparent'>
+    <header className='flex flex-wrap sm:justify-start sm:flex-nowrap w-full text-sm py-4 shadow-md backdrop-blur-sm fixed z-50 top-0'>
       <nav
-        className='w-full mx-auto px-4 flex flex-wrap basis-full items-center justify-between'
+        className='container w-full mx-auto px-4 flex flex-wrap basis-full items-center justify-between '
         aria-label='Global'
       >
         <Link
@@ -66,9 +66,6 @@ const Navbar = () => {
               <path d='m6 6 12 12' />
             </svg>
           </button>
-          <Link className='py-2 px-3 inline-flex items-center gap-x-2 text-sm font-bold rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 '>
-            تسجيل دخول
-          </Link>
         </div>
         <div
           id='navbar-alignment'
