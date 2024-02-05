@@ -1,14 +1,23 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
 import Cookies from 'js-cookie';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import { UserContext } from '../../Context/UserContext.jsx';
+import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
-  let navigate = useNavigate();
+  const { userToken, setUserToken } = useContext(UserContext);
+  let Navigate = useNavigate();
+
+  useEffect(() => {
+    if (userToken !== null) {
+      Navigate('/');
+    }
+  }, [Navigate, userToken]);
 
   async function submitLogin(values) {
     setIsLoading(true);
@@ -17,14 +26,14 @@ const Login = () => {
       .then(({ data }) => {
         if (data.message === 'success') {
           Cookies.set('token', data.token);
+          setUserToken(data.token);
           setIsLoading(false);
-          navigate('/');
+          Navigate('/');
         }
       })
       .catch((err) => {
         if (err.response.data.err === 'wrong password') {
-          toast('كلمة المرور خاطئة', {
-            icon: '🙅🏻',
+          toast.error('كلمة المرور خاطئة', {
             style: {
               borderRadius: '10px',
               background: '#fff',
@@ -32,8 +41,7 @@ const Login = () => {
             },
           });
         } else if (err.response.data.err === "Username does't exist") {
-          toast('اسم المستخدم خاطئ', {
-            icon: '🙅🏻',
+          toast.error('اسم المستخدم خاطئ', {
             style: {
               borderRadius: '10px',
               background: '#fff',
@@ -70,6 +78,9 @@ const Login = () => {
 
   return (
     <>
+      <Helmet>
+        <title>تسجيل دخول</title>
+      </Helmet>
       <div className='flex justify-center items-center '>
         <div className='card bg-slate-100  rounded-lg shadow-lg m-5 p-5 lg:w-1/3 '>
           <h1 className='text-xl font-bold text-[#203864] my-2'>تسجيل دخول</h1>
@@ -180,14 +191,6 @@ const Login = () => {
               </button>
             )}
           </form>
-
-          <span className='text-[#29477f]'> ليس لديك حساب بالفعل؟</span>
-          <Link
-            className='text-[#29477f] py-2 my-2 ms-2 '
-            to={'/auth/register'}
-          >
-            تسجيل مستخدم جديد
-          </Link>
         </div>
       </div>
     </>

@@ -9,3 +9,74 @@ body {
   background: #203864;
   direction: rtl;
 }
+
+table,
+td,
+tr {
+  background-color: #fff;
+  color: #000;
+  border: #000000 1px solid;
+  text-align: center;
+  padding: 0.4rem;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+table .day,
+.times {
+  background-color: #ffdc64;
+  font-weight: 800;
+}
+
+table td {
+  width: 17%;
+  background-color: #e0ecf4;
+  position: relative;
+}
+table td p {
+  font-weight: 700;
+  font-size: 12px;
+  padding: 0.1rem;
+}
+
+.deleteLectureBtn {
+  position: absolute;
+  top: 5%;
+  left: 2%;
+  opacity: 0;
+  transition: 0.2s;
+}
+
+#timeTable td:hover .deleteLectureBtn {
+  opacity: 1;
+}
+
+.logoImg {
+  width: 8%;
+}
+
+@media print {
+  .navbar {
+    display: none;
+  }
+  .tableBackground {
+    height: 100%;
+    width: 100%;
+    background-color: #eee;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  table,
+  td,
+  tr {
+    border: #000000 1px solid;
+  }
+
+  footer {
+    display: none;
+  }
+}

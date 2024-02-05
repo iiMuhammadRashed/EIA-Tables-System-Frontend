@@ -1,7 +1,14 @@
-import Style from './Preoccupations.module.scss';
+import { Helmet } from 'react-helmet-async';
 
 const Preoccupations = () => {
-  return <div>Preoccupations</div>;
+  return (
+    <>
+      <Helmet>
+        <title>الإنشغالات</title>
+      </Helmet>
+      <div>Preoccupations</div>
+    </>
+  );
 };
 
 export default Preoccupations;

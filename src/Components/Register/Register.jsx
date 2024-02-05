@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
 const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
-  let navigate = useNavigate();
 
   async function submitRegister(values) {
     setIsLoading(true);
@@ -15,8 +15,14 @@ const Register = () => {
       .post('http://localhost:4000/api/v1/auth/register ', values)
       .then(({ data }) => {
         if (data.message === 'success') {
+          toast.success('.تم التسجيل بنجاح', {
+            style: {
+              borderRadius: '10px',
+              background: '#fff',
+              color: '#203864',
+            },
+          });
           setIsLoading(false);
-          navigate('auth/login');
         }
       })
       .catch((err) => {
@@ -36,7 +42,7 @@ const Register = () => {
 
   let validationSchema = Yup.object({
     username: Yup.string()
-      .min(3, 'يجب أن يكون اسم المستخدم من 3 حروف على الأقل')
+      .min(4, 'يجب أن يكون اسم المستخدم من 4 حروف على الأقل')
       .max(20, 'يجب أن يكون اسم المستخدم من 20 حروف على الأكثر')
       .required('اسم المستخدم مطلوب'),
 
@@ -66,6 +72,9 @@ const Register = () => {
 
   return (
     <>
+      <Helmet>
+        <title>تسجيل</title>
+      </Helmet>
       <div className='flex justify-center items-center '>
         <div className='card bg-slate-100  rounded-lg shadow-lg m-5 p-5 lg:w-1/3 '>
           <h1 className='text-xl font-bold text-[#203864] my-2'>
